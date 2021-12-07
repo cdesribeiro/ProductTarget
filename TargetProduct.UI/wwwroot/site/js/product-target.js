@@ -123,8 +123,18 @@ function FillForm(data) {
 function errorFormatter(error) {
     try {
         let objError = JSON.parse(error);
-        if (objError != undefined && objError.errors != undefined && objError.errors.Description != undefined) {
-            let ArrErrors = objError.errors.Description.join('<br>');
+        if (objError != undefined && objError.errors != undefined) {
+            let errorsKeys = Object.keys(objError.errors);
+            let errorArray = [];
+
+            errorsKeys.forEach(function (element, index, array) {
+                var elementArray = objError.errors[element];
+                errorArray = errorArray.concat(elementArray);
+            });
+
+            console.log(objError);
+            console.log(errorsKeys);
+            let ArrErrors = errorArray.join('<br>');
             showErrorMessage(ArrErrors)
         }
     } catch (err) {
