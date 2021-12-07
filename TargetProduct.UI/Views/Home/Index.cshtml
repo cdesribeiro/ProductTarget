@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿<section style="margin: 30px;">
+    <div class="row" style="display: flex; flex;justify-content: center">
+        <div class="col-8">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalForm">Adicionar</button>
+            <table id="table"
+                   data-search="true">
+                <thead>
+                    <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="description">Descrição</th>
+                        <th data-field="shortDescription">Descrição Resumida</th>
+                        <th data-field="registrationDate">Data de Registro</th>
+                        <th data-field="quantity">Quantidade</th>
+                        <th data-field="value">Valor Unitário</th>
+                        <th data-field="totalValue">Valor Total</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormLabel">Novo Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-6">
+                        <label for="product-description" class="col-form-label">Descrição:</label>
+                        <input type="text" class="form-control" id="product-description">
+                    </div>
+                    <div class="mb-6">
+                        <label for="product-short-description" class="col-form-label">Descrição Resumida:</label>
+                        <input type="text" class="form-control" id="product-short-description">
+                    </div>
+                    <div class="mb-6">
+                        <label for="product-quantity" class="col-form-label">Quantidade:</label>
+                        <input type="number" class="form-control" id="product-quantity" value="0">
+                    </div>
+                    <div class="mb-6">
+                        <label for="product-value" class="col-form-label">Valor:</label>
+                        <input type="number" class="form-control" id="product-value" value="0">
+                    </div>
+                    <div class="mb-6">
+                        <label for="product-active" class="col-form-label">Ativo:</label>
+                        <input class="form-check-input" type="checkbox" value="" id="product-active" style="margin-top: 11px">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="SalvarProduto()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/site/js/product-target.js"></script>
 }

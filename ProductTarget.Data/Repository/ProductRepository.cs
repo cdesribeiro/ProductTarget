@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using ProductTarget.Domain.ViewModels;
 
 namespace Management.Data.Repository
 {
@@ -61,8 +62,32 @@ namespace Management.Data.Repository
             var query = from product in _dbSet.AsNoTracking()
                         select product;
 
-
             return await query.ToListAsync();
+        }
+
+        public IList<ProductGridViewModel> GetProductsGrid(string search, string sort, string order, int offset, int limit)
+        {
+            var query = from product in _dbSet.AsNoTracking()
+                        select new ProductGridViewModel
+                        {
+                            Id = product.Id,
+                            Description = product.Description,
+                            ShortDescription = product.ShortDescription,
+                            Quantity = product.Quantity,
+                            Value = product.Value,
+                            TotalValue = product.Quantity * product.Value,
+                            RegistrationDate = product.RegisterDate.ToString("yyyy-MM-dd HH-mm-ss")
+                        };
+
+            if (!string.IsNullOrEmpty(search))
+                query = query.Where(desc => desc.Description.Contains(search) || desc.ShortDescription.Contains(search));
+
+            if (limit != 0)
+                query = query
+                    .Skip(offset)
+                    .Take(limit);
+
+            return query.ToList();
         }
     }
 }

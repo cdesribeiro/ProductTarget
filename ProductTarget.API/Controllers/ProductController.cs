@@ -60,7 +60,15 @@ namespace ProductTarget.API.Controllers
         [HttpGet("GetProductsGridList")]
         public async Task<IActionResult> GetProductsGridList(string search, string sort, string order, int offset, int limit)
         {
-            return Ok();
+            try
+            {
+                var result = _productRepository.GetProductsGrid(search, sort, order, offset, limit);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
