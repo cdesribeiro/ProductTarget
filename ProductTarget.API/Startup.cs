@@ -1,14 +1,13 @@
+using Management.BusinessRule.Rules;
+using Management.Data.Context;
+using Management.Data.Repository;
+using Management.Domain.Interface.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProductTarget.API
 {
@@ -23,6 +22,8 @@ namespace ProductTarget.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("DbConnection");
+            services.AddDbContext<AppDbContext>(configuration => configuration.UseSqlServer(connectionString));
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddCors(options =>
@@ -34,6 +35,12 @@ namespace ProductTarget.API
                     builder.AllowAnyMethod();
                 });
             });
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<CategoryRules>();
+            services.AddScoped<ProductRule>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

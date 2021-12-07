@@ -8,5 +8,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProductTarget.BusinessRule\ProductTarget.BusinessRule.csproj" />
+    <ProjectReference Include="..\ProductTarget.Data\ProductTarget.Data.csproj" />
+    <ProjectReference Include="..\ProductTarget.Domain\ProductTarget.Domain.csproj" />
+  </ItemGroup>
+
 
 </Project>
