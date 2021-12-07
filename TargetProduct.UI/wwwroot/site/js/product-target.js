@@ -35,14 +35,9 @@
 
 function EditarProduto(id) {
     $.get("http://localhost:5188/api/Product/GetProductEdit?id=" + id, function (data) {
-        console.log(data);
-
         $('#modalForm').modal('show');
-
         FillForm(data);
-
     });
-
 }
 function ExcluirProduto(id) {
     return $.ajax({
@@ -76,7 +71,6 @@ function SalvarProduto() {
     }
 
     let jsonObjProdSave = JSON.stringify(objProdSave);
-
     $.ajax({
         type: "POST",
         url: 'http://localhost:5188/api/Product/',
@@ -109,10 +103,7 @@ function FormClear() {
 }
 
 function FillForm(data) {
-    console.log(data);
-
     productId = data.id;
-
     $('#product-description').val(data.description);
     $('#product-quantity').val(data.quantity);
     $('#product-value').val(data.value);
@@ -132,13 +123,11 @@ function errorFormatter(error) {
                 errorArray = errorArray.concat(elementArray);
             });
 
-            console.log(objError);
-            console.log(errorsKeys);
             let ArrErrors = errorArray.join('<br>');
             showErrorMessage(ArrErrors)
         }
     } catch (err) {
-        console.log(err);
+        console.error(err);
         showErrorMessage(error)
     }
 }
