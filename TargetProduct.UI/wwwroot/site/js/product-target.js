@@ -9,7 +9,6 @@
 });
 
 function SalvarProduto() {
-    debugger;
     var description = $('#product-description').val();
     var shortDescription = $('#product-short-description').val();
     var quantity = $('#product-quantity').val();;
@@ -18,8 +17,8 @@ function SalvarProduto() {
     var objProdSave = {
         Description: description,
         ShortDescription: shortDescription,
-        Quantity: quantity,
-        Value: value,
+        //Quantity: quantity,
+        //Value: value,
         Active: active
     }
 
