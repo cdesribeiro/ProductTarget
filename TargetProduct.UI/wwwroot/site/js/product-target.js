@@ -65,8 +65,8 @@ function SalvarProduto() {
         Id: productId,
         Description: description,
         ShortDescription: shortDescription,
-        //Quantity: quantity,
-        //Value: value,
+        Quantity: parseFloat(quantity),
+        Value: parseFloat(value),
         Active: active
     }
 

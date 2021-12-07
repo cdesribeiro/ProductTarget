@@ -76,7 +76,7 @@ namespace Management.Data.Repository
                             Quantity = product.Quantity,
                             Value = product.Value,
                             TotalValue = product.Quantity * product.Value,
-                            RegistrationDate = product.RegisterDate.ToString("yyyy-MM-dd HH-mm-ss")
+                            RegistrationDate = product.RegisterDate.ToString("dd/MM/yyyy HH:mm:ss")
                         };
 
             if (!string.IsNullOrEmpty(search))
