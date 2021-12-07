@@ -14,5 +14,6 @@ namespace Management.Domain.Interface.Repository
         Task<Product> GetProductById(long id);
         Task<IList<Product>> GetAllProducts();
         IList<ProductGridViewModel> GetProductsGrid(string search, string sort, string order, int offset, int limit);
+        ProductViewModel GetProductEdit(long id);
     }
 }

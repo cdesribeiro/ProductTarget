@@ -89,5 +89,22 @@ namespace Management.Data.Repository
 
             return query.ToList();
         }
+
+        public ProductViewModel GetProductEdit(long id)
+        {
+            var query = from product in _dbSet.AsNoTracking()
+                        where product.Id == id
+                        select new ProductViewModel
+                        {
+                            Id = id,
+                            Active = product.Active,
+                            Description = product.Description,
+                            ShortDescription = product.ShortDescription,
+                            Quantity = product.Quantity,
+                            Value = product.Value
+                        };
+
+            return query.FirstOrDefault();
+        }
     }
 }

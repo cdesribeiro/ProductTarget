@@ -70,5 +70,23 @@ namespace ProductTarget.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("GetProductEdit")]
+        public IActionResult GetProductEdit([FromQuery] long id)
+        {
+            try
+            {
+                var result = _productRepository.GetProductEdit(id);
+
+                if (result == null)
+                    return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
