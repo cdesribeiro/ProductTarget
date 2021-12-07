@@ -50,20 +50,23 @@ function ExcluirProduto(id) {
         type: 'DELETE',
         success: function (res) {
             $('#table').bootstrapTable('refresh');
+            showSuccesMessage('Produto Excluído com sucesso');
         },
         dataType: "json",
         contentType: "application/json; charset=utf-8",
+        error: function (request, status, error) {
+            errorFormatter(request.responseText);
+        }
     });
-
 }
 
 function SalvarProduto() {
-    var description = $('#product-description').val();
-    var shortDescription = $('#product-short-description').val();
-    var quantity = $('#product-quantity').val();
-    var value = $('#product-value').val();
-    var active = $('#product-active').is(":checked")
-    var objProdSave = {
+    let description = $('#product-description').val();
+    let shortDescription = $('#product-short-description').val();
+    let quantity = $('#product-quantity').val();
+    let value = $('#product-value').val();
+    let active = $('#product-active').is(":checked")
+    let objProdSave = {
         Id: productId,
         Description: description,
         ShortDescription: shortDescription,
@@ -72,16 +75,22 @@ function SalvarProduto() {
         Active: active
     }
 
+    let jsonObjProdSave = JSON.stringify(objProdSave);
+
     $.ajax({
         type: "POST",
         url: 'http://localhost:5188/api/Product/',
-        data: JSON.stringify(objProdSave),
+        data: jsonObjProdSave,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             $('#table').bootstrapTable('refresh');
             $('#modalForm').modal('hide');
             FormClear();
+            showSuccesMessage('Produto salvo com sucesso');
+        },
+        error: function (request, status, error) {
+            errorFormatter(request.responseText);
         }
     });
 
@@ -109,4 +118,33 @@ function FillForm(data) {
     $('#product-value').val(data.value);
     $('#product-short-description').val(data.shortDescription);
     $("#product-active").prop('checked', data.active);
+}
+
+function errorFormatter(error) {
+    try {
+        let objError = JSON.parse(error);
+        if (objError != undefined && objError.errors != undefined && objError.errors.Description != undefined) {
+            let ArrErrors = objError.errors.Description.join('<br>');
+            showErrorMessage(ArrErrors)
+        }
+    } catch (err) {
+        console.log(err);
+        showErrorMessage(error)
+    }
+}
+
+function showSuccesMessage(message) {
+    iziToast.success({
+        title: 'Sucesso',
+        message: message,
+        position: 'topRight'
+    });
+}
+
+function showErrorMessage(message) {
+    iziToast.error({
+        title: 'Erro',
+        message: message,
+        position: 'topRight'
+    });
 }
